@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__.'/bdays.php';
 require_once __DIR__.'/bot_conf.php';
 
+require_once __DIR__.'/../public/shared/bdays.php';
 require_once __DIR__.'/../public/shared/commands.php';
 require_once __DIR__.'/../public/shared/users.php';
 
@@ -13,7 +13,7 @@ foreach($users as &$user)
   if (!$user->d0 && !$user->d1)
     continue;
 
-  $texts = get_bdays_formatted();
+  $texts = get_bdays_formatted_reminder($user->user_id);
 
   $out = '';
 
@@ -27,7 +27,9 @@ foreach($users as &$user)
   }
   
   if (!empty($out))
-    send_message($out, $user->user_id);
+    print($out);
+
+  return;
 }
 
 

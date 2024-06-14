@@ -114,6 +114,92 @@ function get_bdays_formatted(string $user_id, int $months_to_show)
   return $out;
 }
 
+
+function get_bdays_d0(array $bdays) : array
+{
+  $bdays_d0 = array();
+
+  foreach ($bdays as &$bday)
+  {
+    $dm_now = date('d.m', strtotime('+1 day'));
+    $dm_bday = date('d.m', strtotime($bday->bday));
+    if ($dm_now == $dm_bday)
+      array_push($bdays_d0, $bday);
+  }
+
+  return $bdays_d0;
+}
+
+
+function get_bdays_d1(array $bdays) : array
+{
+  $bdays_d1 = array();
+
+  foreach ($bdays as &$bday)
+  {
+    $dm_now = date('d.m', strtotime('+2 day'));
+    $dm_bday = date('d.m', strtotime($bday->bday));
+    if ($dm_now == $dm_bday)
+      array_push($bdays_d1, $bday);
+  }
+
+  return $bdays_d1;
+}
+
+
+function get_full_years(BDay $bday) : int
+{
+  $date_birth = new DateTime($bday->date);
+  $date_now = new DateTime(date('Y'));
+  
+  $year_of_birth = $date_birth->format('Y');
+  $year_now = $date_now->format('Y');
+
+  return $year_now - $year_of_birth;
+}
+
+
+function get_bdays_formatted_reminder(string $user_id) : array
+{
+  $connection = connect();
+  $bdays = get_bdays_from_db($connection, $user_id);
+  disconnect($connection);
+
+  $bdays_d0 = get_bdays_d0($bdays);
+  $bdays_d1 = get_bdays_d1($bdays);
+
+  $out = array();
+
+  if (!empty($bdays_d0))
+  {
+    $date_formatted = date('d M', strtotime($bdays_d0[0]->date));
+    $date_ru = translate_month_en2ru($date_formatted);
+
+    $out[0] = $date_ru.' наступает ДР у:'.chr(10);
+    foreach ($bdays_d0 as &$bday)
+    {
+      $years_full = get_full_years($bday);
+      $out[0] .= $bday->name.' ('.$years_full.' yo.)'.chr(10);
+    }
+  }
+
+  if (!empty($bdays_d1))
+  {
+    $date_formatted = date('d M', strtotime($bdays_d1[0]->date));
+    $date_ru = translate_month_en2ru($date_formatted);
+
+    $out[1] = $date_ru.' наступает ДР у:'.chr(10);
+    foreach ($bdays_d1 as &$bday)
+    {
+      $years_full = get_full_years($bday);
+      $out[1] .= $bday->name.' ('.$years_full.' yo.)'.chr(10);
+    }
+  }
+
+  return $out;
+}
+
+
 function validate_bday_pars(string $name, string $date) : string
 {
   if (!preg_match('/^([а-яА-ЯЁёa-zA-Z0-9 ]+)$/u', $name))
