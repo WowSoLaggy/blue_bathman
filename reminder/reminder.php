@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/bot_conf.php';
+require_once __DIR__.'/../public/blue_bathman/bot_conf.php';
 
 require_once __DIR__.'/../public/shared/bdays.php';
 require_once __DIR__.'/../public/shared/commands.php';
