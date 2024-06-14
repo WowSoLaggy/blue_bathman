@@ -2,16 +2,19 @@
 
 require_once __DIR__.'/bdays.php';
 require_once __DIR__.'/bot_conf.php';
-require_once __DIR__.'/users.php';
 
 require_once __DIR__.'/../public/shared/commands.php';
+require_once __DIR__.'/../public/shared/users.php';
 
 
-$texts = get_bdays_formatted();
-$users = get_users();
-
+$users = get_all_users();
 foreach($users as &$user)
 {
+  if (!$user->d0 && !$user->d1)
+    continue;
+
+  $texts = get_bdays_formatted();
+
   $out = '';
 
   if ($user->d0 && !empty($texts[0]))
