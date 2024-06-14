@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../shared/mysql.php';
+require_once __DIR__.'/mysql.php';
 
 
 function is_d01_from_db($connection, string $user_id, string $d01) : bool

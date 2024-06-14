@@ -1,9 +1,8 @@
 <?php
 
-require_once __DIR__.'/users.php';
+require_once __DIR__.'/mysql.php';
 require_once __DIR__.'/subs.php';
-
-require_once __DIR__.'/../shared/mysql.php';
+require_once __DIR__.'/users.php';
 
 
 class Calendar

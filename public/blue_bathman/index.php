@@ -1,14 +1,14 @@
 <?php
 
-require_once __DIR__.'/bdays.php';
 require_once __DIR__.'/bot_commands.php';
 require_once __DIR__.'/bot_conf.php';
-require_once __DIR__.'/d01.php';
-require_once __DIR__.'/users.php';
 
+require_once __DIR__.'/../shared/bdays.php';
 require_once __DIR__.'/../shared/commands.php';
+require_once __DIR__.'/../shared/d01.php';
 require_once __DIR__.'/../shared/keyboard.php';
 require_once __DIR__.'/../shared/logger.php';
+require_once __DIR__.'/../shared/users.php';
 
 
 function process(string $user_id, string $chat_id, string $text = null) : bool

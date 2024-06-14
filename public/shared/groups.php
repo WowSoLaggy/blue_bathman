@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__.'/users.php';
 
-require_once __DIR__.'/../shared/mysql.php';
+require_once __DIR__.'/mysql.php';
+require_once __DIR__.'/users.php';
 
 
 function create_new_group($connection, int $owner, bool $personal, bool $public)

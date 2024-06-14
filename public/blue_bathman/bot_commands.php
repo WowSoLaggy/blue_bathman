@@ -1,10 +1,9 @@
 <?php
 
-require_once __DIR__.'/bdays.php';
-require_once __DIR__.'/cals.php';
-require_once __DIR__.'/groups.php';
-
+require_once __DIR__.'/../shared/bdays.php';
+require_once __DIR__.'/../shared/cals.php';
 require_once __DIR__.'/../shared/commands.php';
+require_once __DIR__.'/../shared/groups.php';
 require_once __DIR__.'/../shared/translate.php';
 
 

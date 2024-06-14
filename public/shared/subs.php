@@ -1,9 +1,8 @@
 <?php
 
 require_once __DIR__.'/groups.php';
+require_once __DIR__.'/mysql.php';
 require_once __DIR__.'/users.php';
-
-require_once __DIR__.'/../shared/mysql.php';
 
 
 function get_user_subs_by_ind($connection, int $user_ind) : array
