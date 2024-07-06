@@ -1,0 +1,26 @@
+{
+  "name": "blue_bathman",
+  "version": "1.0.0",
+  "main": "blue_bathman.js",
+  "description": "A bot that reminds about upcoming birthdays",
+  "keywords": [
+    "birthday",
+    "reminder",
+    "bot",
+    "telegram",
+    "tg"
+  ],
+  "author": "WowSoLaggy wowsolaggy@gmail.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WowSoLaggy/blue_bathman.git"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "dotenv": "latest",
+    "tg_api": "github:WowSoLaggy/tg_api"
+  }
+}
