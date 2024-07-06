@@ -1,9 +1,20 @@
 const { send_message } = require('tg_api');
 
+const { process_callback, process_message } = require('./utils/process.js');
+
 
 async function on_request(token, body) {
   try {
-    const response = await send_message(token, body.message.chat.id, body.message.text);
+    if (body.callback_query) {
+      response = await process_callback(token, body.callback_query);
+    }
+    else if (body.message) {
+      response = await process_message(token, body.message);
+    }
+    else {
+      throw new Error('No message or callback_query');
+    }
+    
     return {
         statusCode: 200,
         body: JSON.stringify(response),
@@ -12,7 +23,7 @@ async function on_request(token, body) {
   catch (error) {
     return {
         status: 500,
-        body: JSON.stringify({ error: 'Failed to send message' }),
+        body: error,
     };
   }
 }
