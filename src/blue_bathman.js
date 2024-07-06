@@ -5,14 +5,14 @@ async function on_request(token, body) {
   try {
     const response = await send_message(token, body.message.chat.id, body.message.text);
     return {
-        status: 200,
-        body: response
+        statusCode: 200,
+        body: JSON.stringify(response),
     };
   }
   catch (error) {
     return {
         status: 500,
-        body: error
+        body: JSON.stringify({ error: 'Failed to send message' }),
     };
   }
 }
