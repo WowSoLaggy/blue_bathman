@@ -9,13 +9,30 @@ const CHAT_ID = process.env.CHAT_ID;
 
 
 async function run_test() {
-  const event = {
-    chat: {
-      id: CHAT_ID
-    },
-    text: 'Hello, world!'
+  const body = {
+    update_id: 822997335,
+    message: {
+      message_id: 845,
+      from: {
+        id: 305099932,
+        is_bot: false,
+        first_name: 'Anton',
+        last_name: 'Egorov',
+        username: 'WowSoLaggy',
+        language_code: 'en'
+      },
+      chat: {
+        id: 305099932,
+        first_name: 'Anton',
+        last_name: 'Egorov',
+        username: 'WowSoLaggy',
+        type: 'private'
+      },
+      date: 1720208436,
+      text: 'Hello, world'
+    }
   };
-  const response = await on_request(TELEGRAM_TOKEN, event);
+  const response = await on_request(TELEGRAM_TOKEN, body);
   console.log(response);
 }
 

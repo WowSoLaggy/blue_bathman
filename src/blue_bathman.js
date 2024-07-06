@@ -1,9 +1,9 @@
 const { send_message } = require('tg_api');
 
 
-async function on_request(token, event) {
+async function on_request(token, body) {
   try {
-    const response = await send_message(token, event.chat.id, event.text);
+    const response = await send_message(token, body.message.chat.id, body.message.text);
     return {
         status: 200,
         body: response
