@@ -1,5 +1,3 @@
-const { send_message } = require('tg_api');
-
 const { process_callback, process_message } = require('./utils/process.js');
 
 
