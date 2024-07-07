@@ -29,7 +29,7 @@ async function run_test() {
         type: 'private'
       },
       date: 1720208436,
-      text: 'Hello, world'
+      text: '/help'
     }
   };
   const response = await on_request(TELEGRAM_TOKEN, body);

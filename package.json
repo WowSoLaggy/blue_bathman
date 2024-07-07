@@ -20,7 +20,9 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "csv-parser": "latest",
     "dotenv": "latest",
+    "moment": "latest",
     "tg_api": "github:WowSoLaggy/tg_api"
   }
 }
