@@ -83,7 +83,20 @@ async function get_bdays_2(user_id) {
 }
 
 
-async function format_bdays(bdays) {
+async function get_bdays_tomorrow(user_id) {
+  const bdays = await get_bdays_12(user_id);
+  const tomorrow = moment().add(1, 'days');
+  return bdays.filter(bday => moment(bday['date']).set('year', tomorrow.year()).isSame(tomorrow, 'day'));
+}
+
+async function get_bdays_after_tommorow(user_id) {
+  const bdays = await get_bdays_12(user_id);
+  const after_tomorrow = moment().add(2, 'days');
+  return bdays.filter(bday => moment(bday['date']).set('year', after_tomorrow.year()).isSame(after_tomorrow, 'day'));
+}
+
+
+async function format_bdays_per_month(bdays) {
   let formatted_bdays = '';
   let currentMonth = '';
   bdays.forEach(bday => {
@@ -106,16 +119,42 @@ async function format_bdays(bdays) {
   return formatted_bdays;
 }
 
+async function format_bdays_on_day(bdays, date) {
+  if (!bdays.length)
+    return '';
+  let formatted_bdays = '';
+  const day = moment(date).format('D');
+  const month = moment(date).format('MMMM');
+  const month_ru = translate_month_to_russian(month);
+  formatted_bdays += `${day} ${month_ru} наступает ДР у:\n`;
+  bdays.forEach(bday => {
+    const name = bday['name'];
+    const age = bday['age'];
+    formatted_bdays += `${name} (${age} yo.)\n`;
+  });
+  return formatted_bdays;
+}
+
 
 async function get_bdays_12_formatted(user_id) {
   const bdays = await get_bdays_12(user_id);
-  return await format_bdays(bdays);
+  return await format_bdays_per_month(bdays);
 }
 
 async function get_bdays_2_formatted(user_id) {
   const bdays = await get_bdays_2(user_id);
-  return await format_bdays(bdays);
+  return await format_bdays_per_month(bdays);
+}
+
+async function get_bdays_tomorrow_formatted(user_id) {
+  const bdays = await get_bdays_tomorrow(user_id);
+  return await format_bdays_on_day(bdays, moment().add(1, 'days'));
+}
+
+async function get_bdays_after_tomorrow_formatted(user_id) {
+  const bdays = await get_bdays_after_tommorow(user_id);
+  return await format_bdays_on_day(bdays, moment().add(2, 'days'));
 }
 
 
-module.exports = { get_bdays_12_formatted, get_bdays_2_formatted };
+module.exports = { get_bdays_12_formatted, get_bdays_2_formatted, get_bdays_tomorrow_formatted, get_bdays_after_tomorrow_formatted };

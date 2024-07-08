@@ -1,14 +1,17 @@
 const dotenv = require('dotenv');
 
-const { on_request } = require('./blue_bathman.js');
-
-
-dotenv.config();
-const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
-const CHAT_ID = process.env.CHAT_ID;
+const { on_request, on_notify } = require('./blue_bathman.js');
 
 
 async function run_test() {
+
+  dotenv.config();
+  const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+  const CHAT_ID = process.env.CHAT_ID;
+
+  on_notify(TELEGRAM_TOKEN);
+  return;
+
   const body = {
     update_id: 822997335,
     message: {

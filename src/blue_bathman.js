@@ -1,4 +1,5 @@
 const { process_callback, process_message } = require('./utils/process.js');
+const { notify_users } = require('./utils/notify.js');
 
 
 async function on_request(token, body) {
@@ -26,4 +27,10 @@ async function on_request(token, body) {
   }
 }
 
-module.exports = { on_request };
+
+async function on_notify(token) {
+  return await notify_users(token);
+}
+
+
+module.exports = { on_request, on_notify };

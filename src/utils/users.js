@@ -37,4 +37,10 @@ async function get_user_subs(user_id) {
 }
 
 
-module.exports = { user_exists, get_user_subs };
+async function get_users_to_notify() {
+  const users = await read_users_file();
+  return users.filter(user => user['notify'] === '1');
+}
+
+
+module.exports = { user_exists, get_user_subs, get_users_to_notify };
