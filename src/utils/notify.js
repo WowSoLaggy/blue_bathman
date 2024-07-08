@@ -14,10 +14,8 @@ async function notify_users(token) {
       notification_text += '\n';
     notification_text += await get_bdays_after_tomorrow_formatted(user.user_id);
 
-    console.log(notification_text);
-
     if (notification_text)
-      return await send_message(token, user.user_id, notification_text);
+      await send_message(token, user.user_id, notification_text);
   }
 }
 

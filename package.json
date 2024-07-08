@@ -1,6 +1,6 @@
 {
   "name": "blue_bathman",
-  "version": "1.0",
+  "version": "2.1",
   "main": "src/blue_bathman.js",
   "description": "A bot that reminds about upcoming birthdays",
   "keywords": [

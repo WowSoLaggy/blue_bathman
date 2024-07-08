@@ -29,7 +29,7 @@ async function on_request(token, body) {
 
 
 async function on_notify(token) {
-  return await notify_users(token);
+  await notify_users(token);
 }
 
 
