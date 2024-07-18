@@ -55,14 +55,17 @@ async function get_bdays_12(user_id) {
   };
   bdays.forEach(bday => {
     bday['age'] = get_age(bday['date'], now);
-    const is_same = moment(bday['date']).set('year', now.year()).isSame(now, 'day');
-    if (!is_same)
+    // Increment age by one if bday is not today and is not in this month
+    const is_this_month = moment(bday['date']).set('year', now.year()).isSame(now, 'month');
+    const is_today = moment(bday['date']).set('year', now.year()).isSame(now, 'day');
+    const after_today = moment(bday['date']).set('year', now.year()).isAfter(now, 'day');
+    if (after_today || (!is_this_month && !is_today))
       bday['age']++;
   });
 
-  // Iterate over bdays, move all bdays before today (ignoring year) to the end (but keep it if it is today)
+  // Iterate over bdays, move all bdays before start of current month (ignoring year) to the end (but keep it if it is today)
   let i = 0;
-  while (i < bdays.length && moment(bdays[i]['date']).set('year', now.year()).isBefore(now, 'day')) {
+  while (i < bdays.length && moment(bdays[i]['date']).set('year', now.year()).isBefore(now, 'month')) {
     i++;
   }
   bdays = bdays.concat(bdays.splice(0, i));

@@ -32,7 +32,8 @@ async function user_exists(user_id) {
 
 async function get_user_subs(user_id) {
   const users = await read_users_file();
-  const subs_string = users.find(user => user['user_id'] === user_id.toString())['subs'];
+  const user = users.find(user => user['user_id'] === user_id.toString());
+  const subs_string = user['subs'];
   return subs_string.split(',').map(sub => parseInt(sub));
 }
 
