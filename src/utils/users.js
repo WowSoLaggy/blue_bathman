@@ -1,7 +1,4 @@
-const csv = require('csv-parser');
-const fs = require('fs');
-const path = require('path');
-const ydb_api = require('ydb_api');
+const ydb_utils = require('./ydb_utils');
 
 
 let _cache = null;
@@ -12,11 +9,8 @@ async function get_users() {
     query = `SELECT * FROM \`bdays/users_tbl\``;
 
     try {
-      const ydb = await new ydb_api().init();
-      const result = await ydb.query(query);
-      result.forEach(row => console.log(row));
-      _cache = result;
-      ydb.destroy();
+      const ydb = await ydb_utils.get();
+      _cache = await ydb.query(query);
     } catch (error) {
       console.error('Error fetching users:', error);
       throw error;

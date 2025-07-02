@@ -1,5 +1,12 @@
 const { process_callback, process_message } = require('./utils/process.js');
 const { notify_users } = require('./utils/notify.js');
+const ydb_utils = require('./utils/ydb_utils');
+
+
+async function cleanup() {
+  let ydb = await ydb_utils.get();
+  await ydb.destroy();
+}
 
 
 async function on_request(token, body) {
@@ -24,12 +31,15 @@ async function on_request(token, body) {
         status: 500,
         body: error,
     };
+  } finally {
+    await cleanup();
   }
 }
 
 
 async function on_notify(token) {
   await notify_users(token);
+  await cleanup();
 }
 
 

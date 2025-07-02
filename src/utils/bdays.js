@@ -1,39 +1,35 @@
-const csv = require('csv-parser');
-const fs = require('fs');
 const moment = require('moment');
-const path = require('path');
+const ydb_utils = require('./ydb_utils');
 
 const { translate_month_to_russian } = require('./translation');
 const { get_user_subs } = require('./users');
 
 
 let _cache = null;
-async function read_bdays_file() {
+
+
+async function get_bdays() {
   if (!_cache) {
-    return new Promise((resolve, reject) => {
-      const results = [];
-      const csvFilePath = path.resolve(__dirname, './../../tables/bdays.csv');
-      fs.createReadStream(csvFilePath)
-        .pipe(csv())
-        .on('data', (data) => results.push(data))
-        .on('end', () => {
-          results.forEach(record => {
-            record['group_id'] = parseInt(record['group_id']);
-            record['date'] = new Date(record['date']);
-          });
-          _cache = results;
-          resolve(results);
-        })
-        .on('error', (err) => reject(err));
-    });
+    query = `SELECT * FROM \`bdays/bdays_tbl\``;
+
+    try {
+      const ydb = await ydb_utils.get();
+      const result = await ydb.query(query);
+      result.forEach(row => console.log(row));
+      _cache = result;
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
+    }
   }
+
   return _cache;
 }
 
 
 async function get_bdays_from_groups(group_ids){
-  const bdays = await read_bdays_file();
-  return bdays.filter(bday => group_ids.includes(bday['group_id']));
+  const bdays = await get_bdays();
+  return bdays.filter(bday => group_ids.includes(bday['group']));
 }
 
 
