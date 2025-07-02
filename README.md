@@ -6,6 +6,7 @@ This is a node.js implementation of TG bot to notify about upcoming birthdays.
 
 - Can serve all bdays chronologically with mentioning age that will happen on that day
 - Can serve bdays for closest 2 months by default
+- Bdays and users are stored in the YDB so updates don't require application redeploy
 
 ## Contributing
 
