@@ -1,45 +1,47 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
+const ydb_api = require('ydb_api');
 
 
 let _cache = null;
 
 
-async function read_users_file() {
+async function get_users() {
   if (!_cache) {
-    return new Promise((resolve, reject) => {
-      const results = [];
-      const csvFilePath = path.resolve(__dirname, './../../tables/users.csv');
-      fs.createReadStream(csvFilePath)
-        .pipe(csv())
-        .on('data', (data) => results.push(data))
-        .on('end', () => {
-          _cache = results;
-          resolve(results);
-        })
-        .on('error', (err) => reject(err));
-    });
+    query = `SELECT * FROM \`bdays/users_tbl\``;
+
+    try {
+      const ydb = await new ydb_api().init();
+      const result = await ydb.query(query);
+      result.forEach(row => console.log(row));
+      _cache = result;
+      ydb.destroy();
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
+    }
   }
+
   return _cache;
 }
 
 
 async function user_exists(user_id) {
-  const users = await read_users_file();
-  return users.some(user => user['user_id'] === user_id.toString());
+  const users = await get_users();
+  return users.some(user => user['user_id'] === user_id);
 }
 
 async function get_user_subs(user_id) {
-  const users = await read_users_file();
-  const user = users.find(user => user['user_id'] === user_id.toString());
+  const users = await get_users();
+  const user = users.find(user => user['user_id'] === user_id);
   const subs_string = user['subs'];
   return subs_string.split(',').map(sub => parseInt(sub));
 }
 
 
 async function get_users_to_notify() {
-  const users = await read_users_file();
+  const users = await get_users();
   return users.filter(user => user['notify'] === '1');
 }
 

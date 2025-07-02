@@ -1,6 +1,6 @@
 {
   "name": "blue_bathman",
-  "version": "2.1",
+  "version": "1.1.5",
   "main": "src/blue_bathman.js",
   "description": "A bot that reminds about upcoming birthdays",
   "keywords": [
@@ -23,6 +23,7 @@
     "csv-parser": "latest",
     "dotenv": "latest",
     "moment": "latest",
-    "tg_api": "github:WowSoLaggy/tg_api#v1.0"
+    "tg_api": "github:WowSoLaggy/tg_api",
+    "ydb_api": "github:WowSoLaggy/ydb_api"
   }
 }
