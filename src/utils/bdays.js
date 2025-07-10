@@ -15,7 +15,6 @@ async function get_bdays() {
     try {
       const ydb = await ydb_utils.get();
       const result = await ydb.query(query);
-      result.forEach(row => console.log(row));
       _cache = result;
     } catch (error) {
       console.error('Error fetching users:', error);

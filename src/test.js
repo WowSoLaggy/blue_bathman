@@ -39,8 +39,8 @@ async function run_test() {
   console.log('YDB_ID:', process.env.YDB_ID);
   console.log('YDB_SERVICE_ACCOUNT_ID:', process.env.YDB_SERVICE_ACCOUNT_ID);
 
-  //on_notify(TELEGRAM_TOKEN);
-  //return;
+  on_notify(process.env.TELEGRAM_TOKEN);
+  return;
 
   const body = {
     update_id: 822997335,

@@ -36,7 +36,7 @@ async function get_user_subs(user_id) {
 
 async function get_users_to_notify() {
   const users = await get_users();
-  return users.filter(user => user['notify'] === '1');
+  return users.filter(user => user['notify'] === 1);
 }
 
 
