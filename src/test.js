@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 
 const { on_request, on_notify } = require('./blue_bathman.js');
+const { user_exists } = require('./utils/users.js');
 
 
 async function run_test() {
@@ -39,7 +40,10 @@ async function run_test() {
   console.log('YDB_ID:', process.env.YDB_ID);
   console.log('YDB_SERVICE_ACCOUNT_ID:', process.env.YDB_SERVICE_ACCOUNT_ID);
 
-  on_notify(process.env.TELEGRAM_TOKEN);
+  const exists_test = await user_exists(5236221588);
+  console.log('User exists test:', exists_test);
+
+  //on_notify(process.env.TELEGRAM_TOKEN);
   return;
 
   const body = {

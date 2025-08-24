@@ -23,12 +23,12 @@ async function get_users() {
 
 async function user_exists(user_id) {
   const users = await get_users();
-  return users.some(user => user['user_id'] === user_id);
+  return users.some(user => user['user_id'] == user_id);
 }
 
 async function get_user_subs(user_id) {
   const users = await get_users();
-  const user = users.find(user => user['user_id'] === user_id);
+  const user = users.find(user => user['user_id'] == user_id);
   const subs_string = user['subs'];
   return subs_string.split(',').map(sub => parseInt(sub));
 }
