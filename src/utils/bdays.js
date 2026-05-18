@@ -81,16 +81,10 @@ async function get_bdays_2(user_id) {
 }
 
 
-async function get_bdays_tomorrow(user_id) {
+async function get_bdays_today(user_id) {
   const bdays = await get_bdays_12(user_id);
-  const tomorrow = moment().add(1, 'days');
-  return bdays.filter(bday => moment(bday['date']).set('year', tomorrow.year()).isSame(tomorrow, 'day'));
-}
-
-async function get_bdays_after_tommorow(user_id) {
-  const bdays = await get_bdays_12(user_id);
-  const after_tomorrow = moment().add(2, 'days');
-  return bdays.filter(bday => moment(bday['date']).set('year', after_tomorrow.year()).isSame(after_tomorrow, 'day'));
+  const today = moment();
+  return bdays.filter(bday => moment(bday['date']).set('year', today.year()).isSame(today, 'day'));
 }
 
 
@@ -144,15 +138,10 @@ async function get_bdays_2_formatted(user_id) {
   return await format_bdays_per_month(bdays);
 }
 
-async function get_bdays_tomorrow_formatted(user_id) {
-  const bdays = await get_bdays_tomorrow(user_id);
-  return await format_bdays_on_day(bdays, moment().add(1, 'days'));
-}
-
-async function get_bdays_after_tomorrow_formatted(user_id) {
-  const bdays = await get_bdays_after_tommorow(user_id);
-  return await format_bdays_on_day(bdays, moment().add(2, 'days'));
+async function get_bdays_today_formatted(user_id) {
+  const bdays = await get_bdays_today(user_id);
+  return await format_bdays_on_day(bdays, moment());
 }
 
 
-module.exports = { get_bdays_12_formatted, get_bdays_2_formatted, get_bdays_tomorrow_formatted, get_bdays_after_tomorrow_formatted };
+module.exports = { get_bdays_12_formatted, get_bdays_2_formatted, get_bdays_today_formatted };
