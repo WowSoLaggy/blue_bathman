@@ -23,7 +23,7 @@
     "csv-parser": "latest",
     "dotenv": "latest",
     "moment": "latest",
-    "tg_api": "github:WowSoLaggy/tg_api",
+    "node-telegram-bot-api": "latest",
     "ydb_api": "github:WowSoLaggy/ydb_api"
   }
 }

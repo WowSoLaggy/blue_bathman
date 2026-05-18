@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+dotenv.config();
 
 const { on_request, on_notify } = require('./blue_bathman.js');
 const { user_exists } = require('./utils/users.js');
@@ -6,7 +7,6 @@ const { user_exists } = require('./utils/users.js');
 
 async function run_test() {
 
-  dotenv.config();
 
   if (!process.env.TELEGRAM_TOKEN) {
     console.error('TELEGRAM_TOKEN is not set in .env file');
@@ -40,11 +40,11 @@ async function run_test() {
   console.log('YDB_ID:', process.env.YDB_ID);
   console.log('YDB_SERVICE_ACCOUNT_ID:', process.env.YDB_SERVICE_ACCOUNT_ID);
 
-  const exists_test = await user_exists(5236221588);
-  console.log('User exists test:', exists_test);
+  // const exists_test = await user_exists(5236221588);
+  // console.log('User exists test:', exists_test);
 
-  //on_notify(process.env.TELEGRAM_TOKEN);
-  return;
+  // on_notify();
+  // return;
 
   const body = {
     update_id: 822997335,
@@ -69,7 +69,7 @@ async function run_test() {
       text: '/all'
     }
   };
-  const response = await on_request(process.env.TELEGRAM_TOKEN, body);
+  const response = await on_request(body);
   console.log('Response from on_request:');
   console.log(response);
 }

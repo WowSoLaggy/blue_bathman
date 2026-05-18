@@ -9,18 +9,18 @@ async function cleanup() {
 }
 
 
-async function on_request(token, body) {
+async function on_request(body) {
   try {
     if (body.callback_query) {
-      response = await process_callback(token, body.callback_query);
+      response = await process_callback(body.callback_query);
     }
     else if (body.message) {
-      response = await process_message(token, body.message);
+      response = await process_message(body.message);
     }
     else {
       throw new Error('No message or callback_query');
     }
-    
+
     return {
         statusCode: 200,
         body: JSON.stringify(response),
@@ -37,8 +37,8 @@ async function on_request(token, body) {
 }
 
 
-async function on_notify(token) {
-  await notify_users(token);
+async function on_notify() {
+  await notify_users();
   await cleanup();
 }
 
