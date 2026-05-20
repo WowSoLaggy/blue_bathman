@@ -87,6 +87,12 @@ async function get_bdays_today(user_id) {
   return bdays.filter(bday => moment(bday['date']).set('year', today.year()).isSame(today, 'day'));
 }
 
+async function get_bdays_tomorrow(user_id) {
+  const bdays = await get_bdays_12(user_id);
+  const tomorrow = moment().add(1, 'day');
+  return bdays.filter(bday => moment(bday['date']).set('year', tomorrow.year()).isSame(tomorrow, 'day'));
+}
+
 
 async function format_bdays_per_month(bdays) {
   let formatted_bdays = '';
@@ -143,5 +149,10 @@ async function get_bdays_today_formatted(user_id) {
   return await format_bdays_on_day(bdays, moment());
 }
 
+async function get_bdays_tomorrow_formatted(user_id) {
+  const bdays = await get_bdays_tomorrow(user_id);
+  return await format_bdays_on_day(bdays, moment().add(1, 'day'));
+}
 
-module.exports = { get_bdays_12_formatted, get_bdays_2_formatted, get_bdays_today_formatted };
+
+module.exports = { get_bdays_12_formatted, get_bdays_2_formatted, get_bdays_today_formatted, get_bdays_tomorrow_formatted };
