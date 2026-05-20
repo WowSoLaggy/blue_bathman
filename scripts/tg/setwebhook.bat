@@ -17,4 +17,4 @@ if "%BOT_TOKEN%"=="" (
 )
 
 echo Setting webhook for bot...
-curl -F "url=https://bot.laggy.info/poruchik" https://api.telegram.org/bot%BOT_TOKEN%/setWebhook
+curl -F "url=https://bot.laggy.info/blue_bathman" https://api.telegram.org/bot%BOT_TOKEN%/setWebhook

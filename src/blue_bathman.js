@@ -11,6 +11,7 @@ async function cleanup() {
 
 async function on_request(body) {
   try {
+    console.log('on_request body:', JSON.stringify(body));
     if (body.callback_query) {
       response = await process_callback(body.callback_query);
     }
@@ -27,6 +28,7 @@ async function on_request(body) {
     };
   }
   catch (error) {
+    console.error('on_request error:', error);
     return {
         statusCode: 500,
         body: error,
