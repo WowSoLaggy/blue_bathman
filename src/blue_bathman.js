@@ -28,7 +28,7 @@ async function on_request(body) {
   }
   catch (error) {
     return {
-        status: 500,
+        statusCode: 500,
         body: error,
     };
   } finally {
@@ -38,8 +38,20 @@ async function on_request(body) {
 
 
 async function on_notify() {
-  await notify_users();
-  await cleanup();
+  try {
+    await notify_users();
+    return {
+        statusCode: 200,
+        body: '',
+    };
+  } catch (error) {
+    return {
+        statusCode: 500,
+        body: error,
+    };
+  } finally {
+    await cleanup();
+  }
 }
 
 
