@@ -20,10 +20,10 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "csv-parser": "latest",
-    "dotenv": "latest",
-    "moment": "latest",
-    "node-telegram-bot-api": "latest",
+    "csv-parser": "^3.2.1",
+    "dotenv": "^17.4.2",
+    "moment": "^2.30.1",
+    "node-telegram-bot-api": "^0.67.0",
     "ydb_api": "github:WowSoLaggy/ydb_api"
   }
 }

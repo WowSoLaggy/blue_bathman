@@ -20,25 +20,15 @@ async function run_test() {
     console.error('YDB_DATABASE_PATH is not set in .env file');
     return;
   }
-  if (!process.env.YDB_PRIVATE_KEY) {
-    console.error('YDB_PRIVATE_KEY is not set in .env file');
-    return;
-  }
-  if (!process.env.YDB_ID) {
-    console.error('YDB_ID is not set in .env file');
-    return;
-  }
-  if (!process.env.YDB_SERVICE_ACCOUNT_ID) {
-    console.error('YDB_SERVICE_ACCOUNT_ID is not set in .env file');
+  if (!process.env.ACCESS_KEY_PATH) {
+    console.error('ACCESS_KEY_PATH is not set in .env file');
     return;
   }
   
   console.log('TELEGRAM_TOKEN:', process.env.TELEGRAM_TOKEN);
   console.log('YDB_ENDPOINT:', process.env.YDB_ENDPOINT);
   console.log('YDB_DATABASE_PATH:', process.env.YDB_DATABASE_PATH);
-  console.log('YDB_PRIVATE_KEY:', process.env.YDB_PRIVATE_KEY);
-  console.log('YDB_ID:', process.env.YDB_ID);
-  console.log('YDB_SERVICE_ACCOUNT_ID:', process.env.YDB_SERVICE_ACCOUNT_ID);
+  console.log('ACCESS_KEY_PATH:', process.env.ACCESS_KEY_PATH);
 
   // const exists_test = await user_exists(5236221588);
   // console.log('User exists test:', exists_test);
