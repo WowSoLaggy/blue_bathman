@@ -8,8 +8,8 @@ const { user_exists } = require('./utils/users.js');
 async function run_test() {
 
 
-  if (!process.env.TELEGRAM_TOKEN) {
-    console.error('TELEGRAM_TOKEN is not set in .env file');
+  if (!process.env.BOT_TOKEN) {
+    console.error('BOT_TOKEN is not set in .env file');
     return;
   }
   if (!process.env.YDB_ENDPOINT) {
@@ -25,7 +25,7 @@ async function run_test() {
     return;
   }
   
-  console.log('TELEGRAM_TOKEN:', process.env.TELEGRAM_TOKEN);
+  console.log('BOT_TOKEN:', process.env.BOT_TOKEN);
   console.log('YDB_ENDPOINT:', process.env.YDB_ENDPOINT);
   console.log('YDB_DATABASE_PATH:', process.env.YDB_DATABASE_PATH);
   console.log('ACCESS_KEY_PATH:', process.env.ACCESS_KEY_PATH);
